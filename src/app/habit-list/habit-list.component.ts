@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { HabitService } from '../habit.service';
 
 @Component({
   selector: 'app-habit-list',
@@ -14,32 +16,25 @@ import { Component, OnInit } from '@angular/core';
   `,
   styles: [],
 })
-export class HabitListComponent implements OnInit {
-  habits = [
-    {
-      id: 1,
-      title: 'Check in with parents once a week',
-    },
-    {
-      id: 2,
-      title: 'Record 2 videos per day',
-    },
-    {
-      id: 3,
-      title: 'Work on side project 5 hours/week',
-    },
-    {
-      id: 4,
-      title: 'Write for 20 minutes a day',
-    },
-  ];
+export class HabitListComponent implements OnInit, OnDestroy {
+  habits: Observable<any>;
+  habitSubscription: Subscription;
 
-  constructor() {}
+  constructor(private habitService: HabitService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.habitSubscription = this.habitService
+      .getHabits()
+      .subscribe((habits) => {
+        this.habits = habits;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.habitSubscription.unsubscribe();
+  }
 
   onAddHabit(newHabit) {
-    newHabit.id = this.habits.length + 1;
-    this.habits.push(newHabit);
+    this.habitService.addHabit(newHabit);
   }
 }
