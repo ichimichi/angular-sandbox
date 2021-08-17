@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-habit-list',
   template: `
     <h2>Habits</h2>
+    <form [formGroup]="habitForm" (ngSubmit)="onSubmit(habitForm.value)">
+      <input type="text" placeholder="Add habit" formControlName="title" />
+      <button type="submit">Add</button>
+    </form>
     <ul>
       <app-habit-item
         *ngFor="let habit of habits"
@@ -33,7 +38,19 @@ export class HabitListComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  habitForm;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.habitForm = this.formBuilder.group({
+      title: ['', [Validators.required]],
+    });
+  }
 
   ngOnInit(): void {}
+
+  onSubmit(newHabit) {
+    newHabit.id = this.habits.length + 1;
+    this.habits.push(newHabit);
+    this.habitForm.reset();
+  }
 }
