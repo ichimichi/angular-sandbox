@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { HabitService } from '../habit.service';
 
 @Component({
@@ -9,29 +9,20 @@ import { HabitService } from '../habit.service';
     <app-habit-form (addHabit)="onAddHabit($event)"></app-habit-form>
     <ul>
       <app-habit-item
-        *ngFor="let habit of habits"
+        *ngFor="let habit of habits | async"
         [habit]="habit"
       ></app-habit-item>
     </ul>
   `,
   styles: [],
 })
-export class HabitListComponent implements OnInit, OnDestroy {
+export class HabitListComponent implements OnInit {
   habits: Observable<any>;
-  habitSubscription: Subscription;
 
   constructor(private habitService: HabitService) {}
 
   ngOnInit(): void {
-    this.habitSubscription = this.habitService
-      .getHabits()
-      .subscribe((habits) => {
-        this.habits = habits;
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.habitSubscription.unsubscribe();
+    this.habits = this.habitService.getHabits();
   }
 
   onAddHabit(newHabit) {
