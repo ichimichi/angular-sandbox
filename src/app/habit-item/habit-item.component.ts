@@ -3,7 +3,9 @@ import { Habit } from '../model/habit';
 
 @Component({
   selector: 'app-habit-item',
-  template: ` <li>{{ habit.title }}</li> `,
+  template: `
+    <li [style.color]="habit.streak ? 'red' : 'black'">{{ habit.title }}</li>
+  `,
   styles: [],
 })
 export class HabitItemComponent implements OnInit {
