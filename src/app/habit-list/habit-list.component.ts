@@ -5,9 +5,10 @@ import { Component, OnInit } from '@angular/core';
   template: `
     <h2>Habits</h2>
     <ul>
-      <li *ngFor="let habit of habits">
-        {{ habit.title }}
-      </li>
+      <app-habit-item
+        *ngFor="let habit of habits"
+        [habit]="habit"
+      ></app-habit-item>
     </ul>
   `,
   styles: [],
