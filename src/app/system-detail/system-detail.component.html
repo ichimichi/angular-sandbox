@@ -1,5 +1,7 @@
-<h2>{{ system.name }}</h2>
-<p>{{ system.description }}</p>
+<ng-contaier *ngIf="system | async as system">
+  <h2>{{ system.name }}</h2>
+  <p>{{ system.description }}</p>
+</ng-contaier>
 <ul>
   <li>
     <a class="nav-link" routerLink="info" routerLinkActive="active">Info</a>

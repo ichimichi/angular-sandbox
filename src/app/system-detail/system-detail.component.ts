@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { System } from '../data/system';
 import { SystemService } from '../data/system.service';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-system-detail',
@@ -10,8 +11,7 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./system-detail.component.scss'],
 })
 export class SystemDetailComponent implements OnInit {
-  system: System;
-  id: any;
+  system: Observable<System>;
 
   constructor(
     private systemService: SystemService,
@@ -19,15 +19,9 @@ export class SystemDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap
-      .pipe(
-        switchMap((params: ParamMap) => {
-          this.id = +params.get('id');
-          return this.systemService.getSystemDetail(this.id);
-        })
-      )
-      .subscribe((data) => {
-        this.system = data;
-      });
+    this.system = this.route.paramMap.pipe(
+      map((params: ParamMap) => +params.get('id')),
+      switchMap((id: number) => this.systemService.getSystemDetail(id))
+    );
   }
 }
