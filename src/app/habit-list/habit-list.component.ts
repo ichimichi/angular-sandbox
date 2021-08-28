@@ -39,6 +39,6 @@ export class HabitListComponent implements OnInit {
   }
 
   onAddHabit(newHabit) {
-    this.habitService.addHabit(newHabit);
+    this.habitService.addHabit(newHabit).subscribe();
   }
 }

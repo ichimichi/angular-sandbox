@@ -22,7 +22,7 @@ app.get('/api/habits', (req: Request, res: Response) => {
   res.send(data.habits);
 });
 
-app.post('/api/habits', function (req: Request, res: Response) {
+app.post('/api/habits', (req: Request, res: Response) => {
   let habit: Habit = req.body;
   habit.id = data.habits.length + 1;
   habit.count = 0;
