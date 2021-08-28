@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AccountComponent } from './account/account.component';
+import { AccountDetailComponent } from './account-detail/account-detail.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'account',
     component: AccountComponent,
+  },
+  {
+    path: 'account/:id',
+    component: AccountDetailComponent,
   },
   {
     path: '',
@@ -37,6 +42,7 @@ const routes: Routes = [
     HomeComponent,
     NotFoundComponent,
     AccountComponent,
+    AccountDetailComponent,
   ],
   imports: [BrowserModule, RouterModule.forRoot(routes)],
   providers: [],
