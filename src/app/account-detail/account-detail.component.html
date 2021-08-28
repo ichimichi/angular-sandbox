@@ -1,5 +1,5 @@
 <p>account-detail works!</p>
-<p>account id : {{ id }}</p>
+<p>account id : {{ id | async }}</p>
 
 <ul>
   <li><a [routerLink]="['/account', 1]">1</a></li>
