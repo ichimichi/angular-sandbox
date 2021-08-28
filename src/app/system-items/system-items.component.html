@@ -1,1 +1,6 @@
-<p>system-items works!</p>
+<h3>Example Gear</h3>
+<ul>
+  <li *ngFor="let item of items | async">
+    {{ item.name }} - {{ item.description }}
+  </li>
+</ul>
