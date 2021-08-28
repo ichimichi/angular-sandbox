@@ -33,7 +33,12 @@ const routes: Routes = [
     SystemInfoComponent,
     SystemItemsComponent,
   ],
-  imports: [BrowserModule, RouterModule.forRoot(routes)],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes, {
+      paramsInheritanceStrategy: 'always',
+    }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

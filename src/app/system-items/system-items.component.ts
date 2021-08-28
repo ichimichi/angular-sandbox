@@ -19,7 +19,7 @@ export class SystemItemsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.items = this.route.parent.paramMap.pipe(
+    this.items = this.route.paramMap.pipe(
       map((params: ParamMap) => +params.get('id')),
       switchMap((id: number) => this.systemService.getSystemItems(id))
     );
