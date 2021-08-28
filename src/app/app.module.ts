@@ -12,6 +12,16 @@ const routes: Routes = [
   {
     path: 'system/:id',
     component: SystemDetailComponent,
+    children: [
+      {
+        path: 'info',
+        component: SystemInfoComponent,
+      },
+      {
+        path: 'items',
+        component: SystemItemsComponent,
+      },
+    ],
   },
 ];
 

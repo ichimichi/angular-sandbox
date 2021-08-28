@@ -2,9 +2,10 @@
 <p>{{ system.description }}</p>
 <ul>
   <li>
-    <a class="nav-link">Info</a>
+    <a class="nav-link" routerLink="info" routerLinkActive="active">Info</a>
   </li>
   <li>
-    <a class="nav-link">Items</a>
+    <a class="nav-link" routerLink="items" routerLinkActive="active">Items</a>
   </li>
 </ul>
+<router-outlet></router-outlet>
