@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { data } from './data';
+import { data, Habit } from './data';
 import morgan from 'morgan';
 
 const app = express();
@@ -18,8 +18,16 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello From Express dand TS Node server!');
 });
 
-app.get('/api/habits', (req, res) => {
+app.get('/api/habits', (req: Request, res: Response) => {
   res.send(data.habits);
+});
+
+app.post('/api/habits', function (req: Request, res: Response) {
+  let habit: Habit = req.body;
+  habit.id = data.habits.length + 1;
+  habit.count = 0;
+  data.habits.push(habit);
+  res.send(habit);
 });
 
 app

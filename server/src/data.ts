@@ -1,4 +1,10 @@
-export const data = {
+export interface Habit {
+  id: number;
+  title: string;
+  count: number;
+}
+
+export const data: { habits: Habit[] } = {
   habits: [
     {
       id: 1,
