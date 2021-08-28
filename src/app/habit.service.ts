@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { Habit } from './model/habit';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class HabitService {
     },
   ];
 
-  private refetchSubject = new Subject();
+  private refetchSubject = new BehaviorSubject(null);
 
   refetch(): Observable<any> {
     return this.refetchSubject.asObservable();
@@ -44,6 +44,6 @@ export class HabitService {
   addHabit(newHabit) {
     newHabit.id = this.habits.length + 1;
     this.habits.push(newHabit);
-    this.refetchSubject.next();
+    this.refetchSubject.next(null);
   }
 }
